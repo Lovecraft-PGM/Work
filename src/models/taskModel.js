@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+
 const taskSchema = new mongoose.Schema({
    title:{
         type:String,
@@ -13,10 +14,15 @@ const taskSchema = new mongoose.Schema({
         type:Date,
         default: Date.now
     },
+    status:{
+        type:Boolean,
+        default: true,
+        required: true
+    },
     user:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"User",
-        required:true
+        required: true
     }
 },{
     timestamps: true
