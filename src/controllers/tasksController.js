@@ -3,11 +3,13 @@ import Task from "../models/taskModel.js"
 
 export const createTask = async (req, res) => {
   try {
-    const { title, description, date } = req.body;
+    const { title, description,date,endDate,priority } = req.body;
     const newTask = new Task({
       title,
       description,
       date,
+      endDate,
+      priority,
       user: req.user.id,
     });
     await newTask.save();
@@ -28,10 +30,10 @@ export const getTasks = async (req, res) => {
   
 export const updateTask = async (req, res) => {
       try {
-          const { title, description, date, status } = req.body;
+          const { title, description,status,date,endDate,priority } = req.body;
           const taskUpdated = await Task.findOneAndUpdate(
               { _id: req.params.id },
-              { title, description, date, status },
+              { title, description,status,date,endDate,priority },
               { new: true }
             );
             return res.json(taskUpdated);

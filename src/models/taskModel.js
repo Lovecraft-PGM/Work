@@ -14,10 +14,19 @@ const taskSchema = new mongoose.Schema({
         type:Date,
         default: Date.now
     },
+    endDate:{
+        type:Date,
+        default: true,
+        required: true
+    },
     status:{
         type:Boolean,
         default: true,
         required: true
+    },
+    priority:{
+        type:String,
+        required:true,
     },
     user:{
         type: mongoose.Schema.Types.ObjectId,
