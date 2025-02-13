@@ -20,8 +20,8 @@ const taskSchema = new mongoose.Schema({
         required: true
     },
     status:{
-        type:Boolean,
-        default: true,
+        type:String,
+        default: "Activo",
         required: true
     },
     priority:{

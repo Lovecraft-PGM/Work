@@ -39,12 +39,13 @@ export const login = async (req, res) => {
 
     try {
         const userFound = await User.findOne({ mail });
-        if (!userFound) return res.status(400).json({ message: "User not found" });
+        if (!userFound) return res.status(400).json({ message: "Correo no registrado" });
 
         const isMatch = await bcrypt.compare(password, userFound.password);
-        if (!isMatch) return res.status(400).json({ message: "Incorrect password" });
+        if (!isMatch) return res.status(400).json({ message: "La contraseña es incorrecta" });
 
         const token = await createAccessToken({ id: userFound._id });
+
         res.cookie("token", token);
         res.json({
             id: userFound._id,
@@ -94,3 +95,21 @@ export const profile = async (req, res) => {
         });
     });
 };
+
+export const verifyToken = async(req,res)=>{
+    const {token} = req.cookies
+    if (!token)return res.status(401).json({message:"Unauthorized"});
+
+    JWT.verify(token, TOKEN_SECRET, async (err,user)=>{
+        if(err)return res.status(401).json({message:"Unauthorized"});
+
+        const userFound = await User.findById(user.id);
+        if(!userFound)return res.status(401).json({message:"Unauthorized"})
+        
+        return res.json({
+        id:userFound._id,
+        username:userFound.username,
+        mail:userFound.mail,
+        });
+    });
+}

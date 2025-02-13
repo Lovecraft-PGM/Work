@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useAuth } from "../context/AuthContext";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 // para validar el formulario hook
 
 function RegisterPage() {
@@ -41,6 +41,9 @@ function RegisterPage() {
                     Enviar
                 </button>
             </form>
+            <p className="flex gap-x-2 justify-between">
+                Ya tienes cuenta?<Link className="text-sky-500" to="/login"> Iniciar sesion </Link>
+            </p>
         </div>
     );
 }
