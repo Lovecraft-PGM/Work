@@ -39,10 +39,10 @@ export const login = async (req, res) => {
 
     try {
         const userFound = await User.findOne({ mail });
-        if (!userFound) return res.status(400).json({ message: "Correo no registrado" });
+        if (!userFound) return res.status(400).json(["Correo no registrado"]);
 
         const isMatch = await bcrypt.compare(password, userFound.password);
-        if (!isMatch) return res.status(400).json({ message: "La contraseña es incorrecta" });
+        if (!isMatch) return res.status(400).json(["La contraseña es incorrecta"]);
 
         const token = await createAccessToken({ id: userFound._id });
 
